@@ -39,9 +39,9 @@ public class TestGraphics2 {
 
 		final HistoryCommandHandler handler = new HistoryCommandHandler();
 
-		undoButt.addActionListener(evt -> handler.handle(HistoryCommandHandler.NonExecutableCommands.UNDO));
+		undoButt.addActionListener(evt -> handler.undo());
 
-		redoButt.addActionListener(evt -> handler.handle(HistoryCommandHandler.NonExecutableCommands.REDO));
+		redoButt.addActionListener(evt -> handler.redo());
 
 		toolbar.add(undoButt);
 		toolbar.add(redoButt);

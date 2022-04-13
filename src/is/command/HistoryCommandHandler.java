@@ -6,19 +6,7 @@ public class HistoryCommandHandler implements CommandHandler {
 
 
 
-	public enum NonExecutableCommands implements Command {
-		UNDO, REDO;
 
-		@Override
-		public boolean doIt() {
-			throw new NoSuchMethodError();
-		}
-
-		@Override
-		public boolean undoIt() {
-			throw new NoSuchMethodError();
-		}
-	}
 
 
 	private int maxHistoryLength = 100;
@@ -39,14 +27,7 @@ public class HistoryCommandHandler implements CommandHandler {
 	}
 
 	public void handle(Command cmd) {
-		if (cmd == NonExecutableCommands.UNDO) {
-			undo();
-			return;
-		}
-		if (cmd == NonExecutableCommands.REDO) {
-			redo();
-			return;
-		}
+
 		if (cmd.doIt()) {
 			// restituisce true: può essere annullato
 			addToHistory(cmd);
@@ -58,7 +39,7 @@ public class HistoryCommandHandler implements CommandHandler {
 			redoList.clear();
 	}
 
-	private void redo() {
+	public void redo() {
 		if (redoList.size() > 0) {
 			Command redoCmd = redoList.removeFirst();
 			redoCmd.doIt();
@@ -67,7 +48,7 @@ public class HistoryCommandHandler implements CommandHandler {
 		}
 	}
 
-	private void undo() {
+	public void undo() {
 		if (history.size() > 0) {
 			Command undoCmd = history.removeFirst();
 			undoCmd.undoIt();
