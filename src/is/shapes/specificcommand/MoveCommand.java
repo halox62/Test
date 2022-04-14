@@ -7,11 +7,11 @@ import java.awt.geom.Point2D;
 
 public class MoveCommand implements Command {
 
-	Point2D oldPos;
+	private  final Point2D oldPos;
 
-	Point2D newPos;
+	private  final Point2D newPos;
 
-	GraphicObject object;
+	private  final GraphicObject object;
 	
 	public MoveCommand(GraphicObject go, Point2D pos) {
 		oldPos = go.getPosition();
