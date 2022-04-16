@@ -20,11 +20,7 @@ import is.shapes.model.AbstractGraphicObject;
 import is.shapes.model.CircleObject;
 import is.shapes.model.ImageObject;
 import is.shapes.model.RectangleObject;
-import is.shapes.view.CircleObjectView;
-import is.shapes.view.CreateObjectAction;
-import is.shapes.view.GraphicObjectPanel;
-import is.shapes.view.ImageObjectView;
-import is.shapes.view.RectangleObjectView;
+import is.shapes.view.*;
 
 public class TestGraphics2 {
 
@@ -50,9 +46,9 @@ public class TestGraphics2 {
 
 		gpanel.setPreferredSize(new Dimension(400, 400));
 
-		gpanel.installView(RectangleObject.class, new RectangleObjectView());
-		gpanel.installView(CircleObject.class, new CircleObjectView());
-		gpanel.installView(ImageObject.class, new ImageObjectView());
+		GraphicObjectViewFactory.FACTORY.installView(RectangleObject.class, new RectangleObjectView());
+		GraphicObjectViewFactory.FACTORY.installView(CircleObject.class, new CircleObjectView());
+		GraphicObjectViewFactory.FACTORY.installView(ImageObject.class, new ImageObjectView());
 
 		AbstractGraphicObject go = new RectangleObject(new Point(180, 80), 20, 50);
 

@@ -18,11 +18,7 @@ import is.shapes.model.CircleObject;
 import is.shapes.model.GraphicObject;
 import is.shapes.model.ImageObject;
 import is.shapes.model.RectangleObject;
-import is.shapes.view.CircleObjectView;
-import is.shapes.view.GraphicObjectLogger;
-import is.shapes.view.GraphicObjectPanel;
-import is.shapes.view.ImageObjectView;
-import is.shapes.view.RectangleObjectView;
+import is.shapes.view.*;
 
 public class TestGraphics {
 
@@ -47,9 +43,9 @@ public class TestGraphics {
 		GraphicObjectPanel gpanel = new GraphicObjectPanel();
 
 		gpanel.setPreferredSize(new Dimension(400, 400));
-		gpanel.installView(RectangleObject.class, new RectangleObjectView());
-		gpanel.installView(CircleObject.class, new CircleObjectView());
-		gpanel.installView(ImageObject.class, new ImageObjectView());
+		GraphicObjectViewFactory.FACTORY.installView(RectangleObject.class, new RectangleObjectView());
+		GraphicObjectViewFactory.FACTORY.installView(CircleObject.class, new CircleObjectView());
+		GraphicObjectViewFactory.FACTORY.installView(ImageObject.class, new ImageObjectView());
 
 		GraphicObject go = new RectangleObject(new Point(80, 80), 20, 50);
 		gpanel.add(go);

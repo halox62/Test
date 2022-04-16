@@ -83,6 +83,7 @@ public class GraphicObjectController extends JPanel {
 		grid.add(nw);
 
 		JButton n = new JButton("|");
+
 		n.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (subject == null)
