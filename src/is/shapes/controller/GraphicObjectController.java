@@ -5,18 +5,19 @@ import is.shapes.model.GraphicObject;
 import is.shapes.specificcommand.MoveCommand;
 import is.shapes.specificcommand.ZoomCommand;
 
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Point2D;
+import java.io.Serial;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class GraphicObjectController extends JPanel {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 9177631848186263965L;
 
 	private final CommandHandler cmdHandler;
@@ -58,17 +59,16 @@ public class GraphicObjectController extends JPanel {
 		zoom.add(minus);
 
 		JButton plus = new JButton("+");
-		plus.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (subject != null) {
-					// subject.scale(1.0 + zoom_factor);
-					cmdHandler.handle(new ZoomCommand(subject, 1.0 + zoom_factor));
-				}
+		plus.addActionListener(e -> {
+			if (subject != null) {
+				// subject.scale(1.0 + zoom_factor);
+				cmdHandler.handle(new ZoomCommand(subject, 1.0 + zoom_factor));
 			}
 		});
 
 		zoom.add(plus);
 
+		zoom.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 		JButton nw = new JButton("\\");
 
 		nw.addActionListener(new ActionListener() {
@@ -176,7 +176,7 @@ public class GraphicObjectController extends JPanel {
 		});
 		grid.add(se);
 		add(grid);
-
+		setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 	}
 
 }
