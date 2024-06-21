@@ -1,12 +1,18 @@
 package is.shapes.model;
 
 
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class AbstractGraphicObject implements GraphicObject, Cloneable {
 
+	private boolean highlighted = false;
+
+	private int id;
+
 	private  List<GraphicObjectListener> listeners = new LinkedList<>();
+
 
 	@Override
 	public void addGraphicObjectListener(GraphicObjectListener l) {
@@ -28,6 +34,17 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 			gol.graphicChanged(e);
 
 	}
+
+	public boolean isHighlighted() {
+		return highlighted;
+	}
+
+	public void setHighlighted(boolean highlighted) {
+		this.highlighted = highlighted;
+	}
+
+	// Metodo astratto per disegnare l'oggetto
+	public abstract void draw(Graphics2D g, boolean highlight);
 
 
 

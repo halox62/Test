@@ -17,7 +17,7 @@ public class NewObjectCmd implements Command {
 	}
 
 	@Override
-	public boolean doIt() {
+	public boolean execute() {
 		double x = 10;
 		double y =  10;
 		go.moveTo(x, y);

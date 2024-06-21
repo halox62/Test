@@ -15,7 +15,7 @@ public class ZoomCommand implements Command {
 	}
 
 	@Override
-	public boolean doIt() {
+	public boolean execute() {
 		object.scale(factor);
 		return true;
 	}

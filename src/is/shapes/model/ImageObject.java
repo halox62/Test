@@ -1,18 +1,26 @@
 package is.shapes.model;
 
-import java.awt.Dimension;
-import java.awt.Image;
+import is.memento.GraphicObjectFactory;
+import is.memento.Memento;
+
+import java.awt.*;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
-
+import java.io.Serializable;
 import javax.swing.ImageIcon;
 
-public final class ImageObject extends AbstractGraphicObject {
+public final class ImageObject extends AbstractGraphicObject implements Serializable {
 	private double factor = 1.0;
 
-	private final Image image;
+	private  Image image;
 
 	private Point2D position;
+
+	private int idImage;
+
+	public ImageObject() {
+
+	}
 
 	public Image getImage() {
 		return image;
@@ -39,17 +47,40 @@ public final class ImageObject extends AbstractGraphicObject {
 	}
 
 	@Override
+	public void draw(Graphics2D g, boolean highlight) {
+		int width = (int) (factor * image.getWidth(null));
+		int height = (int) (factor * image.getHeight(null));
+		int x = (int) (position.getX() - width / 2);
+		int y = (int) (position.getY() - height / 2);
+
+		g.drawImage(image, x, y, width, height, null);
+
+		if (highlight) {
+			g.setColor(Color.RED);
+			g.drawRect(x, y, width, height);
+		}
+	}
+
+	@Override
 	public ImageObject clone() {
 		ImageObject cloned = (ImageObject) super.clone();
 		cloned.position = (Point2D) position.clone();
 		return cloned;
-
 	}
 
 	@Override
 	public Point2D getPosition() {
-
 		return new Point2D.Double(position.getX(), position.getY());
+	}
+
+	@Override
+	public double getArea() {
+		return 0;
+	}
+
+	@Override
+	public double getPerimetro() {
+		return 0;
 	}
 
 	@Override
@@ -63,20 +94,52 @@ public final class ImageObject extends AbstractGraphicObject {
 	@Override
 	public Dimension2D getDimension() {
 		Dimension dim = new Dimension();
-		dim.setSize(factor * image.getWidth(null),
-				factor * image.getHeight(null));
+		dim.setSize(factor * image.getWidth(null), factor * image.getHeight(null));
 		return dim;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see is.shapes.GraphicObject#getType()
-	 */
 	@Override
 	public String getType() {
-
 		return "Image";
 	}
 
+	public int getId() {
+		return this.idImage;
+	}
+
+	@Override
+	public void setId(int id) {
+		this.idImage = id;
+	}
+
+
+	@Override
+	public Memento createMemento() {
+		return new ImageObjectMemento(position, factor);
+	}
+
+	@Override
+	public void restore(Memento memento) {
+		if (memento instanceof ImageObjectMemento) {
+			ImageObjectMemento imgMemento = (ImageObjectMemento) memento;
+			this.position = imgMemento.position;
+			this.factor = imgMemento.factor;
+		}
+	}
+
+	private static class ImageObjectMemento extends GraphicObjectFactory.TypeMemento {
+		private final Point2D position;
+		private final double factor;
+
+		public ImageObjectMemento(Point2D position, double factor) {
+			this.position = position;
+			this.factor = factor;
+		}
+
+		@Override
+		public String getType() {
+			return "Image";
+		}
+	}
 }
+

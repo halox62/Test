@@ -17,22 +17,17 @@ public class MoveCommand implements Command {
 		oldPos = go.getPosition();
 		newPos = pos;
 		this.object = go;
-		
-		
 	}
 
 	@Override
-	public boolean doIt() {
-
+	public boolean execute() {
 		object.moveTo(newPos);
-
 		return true;
 	}
 
 	@Override
 	public boolean undoIt() {
 		object.moveTo(oldPos);
-		
 		return true;
 	}
 

@@ -9,14 +9,14 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.swing.JComponent;
 
 public class GraphicObjectPanel extends JComponent implements GraphicObjectListener {
+
+	private List<GraphicObject> graphicObjects=new ArrayList<>();
+	private GraphicObject highlightedObject;
 
 	/**
 	 * 
@@ -31,6 +31,7 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 
 
 	public GraphicObjectPanel() {
+		this.graphicObjects = new ArrayList<>();
 		setBackground(Color.WHITE);
 	}
 
@@ -41,7 +42,27 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 
 	}
 
-	
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D) g;
+		if (graphicObjects != null) {
+			for (GraphicObject go : graphicObjects) {
+				go.draw(g2d, go.isHighlighted());
+			}
+		}
+	}
+
+	public void setGraphicObjects(List<GraphicObject> graphicObjects) {
+		this.graphicObjects = graphicObjects;
+	}
+
+	public List<GraphicObject> getGraphicObjects() {
+		return graphicObjects;
+	}
+
+
+
 	public GraphicObject getGraphicObjectAt(Point2D p) {
 		for (GraphicObject g : objects) {
 			if (g.contains(p))
@@ -66,19 +87,6 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 		return new Dimension((int) x, (int) y);
 	}
 
-	@Override
-	protected void paintComponent(Graphics g) {
-
-		super.paintComponent(g);
-
-		Graphics2D g2 = (Graphics2D) g;
-		for (GraphicObject go : objects) {
-			GraphicObjectView view = GraphicObjectViewFactory.FACTORY.createView(go);
-			view.drawGraphicObject(go, g2);
-		}
-
-	}
-
 	public void add(GraphicObject go) {
 		objects.add(go);
 		go.addGraphicObjectListener(this);
@@ -93,5 +101,14 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 
 	}
 
-	
+
+	public List<Object> getGroups() {
+		List<Object> res=new ArrayList<>();
+		for(GraphicObject graphicObject:objects){
+			if(graphicObject.getType().equals("Group")){
+				res.add(graphicObject);
+			}
+		}
+		return res;
+	}
 }

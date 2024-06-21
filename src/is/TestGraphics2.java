@@ -6,27 +6,24 @@ import java.awt.FlowLayout;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.*;
 
 import is.command.HistoryCommandHandler;
 import is.shapes.controller.GraphicObjectController;
-import is.shapes.model.AbstractGraphicObject;
-import is.shapes.model.CircleObject;
-import is.shapes.model.ImageObject;
-import is.shapes.model.RectangleObject;
+import is.shapes.model.*;
 import is.shapes.view.*;
 
 public class TestGraphics2 {
 
-	public static void main(String[] args) {
+	private DefaultComboBoxModel<Integer> dropdownModel;
 
-		JFrame f = new JFrame();
+	public TestGraphics2() {
+		/*JFrame f = new JFrame();
 
 		JToolBar toolbar = new JToolBar();
 
@@ -50,36 +47,53 @@ public class TestGraphics2 {
 		GraphicObjectViewFactory.FACTORY.installView(CircleObject.class, new CircleObjectView());
 		GraphicObjectViewFactory.FACTORY.installView(ImageObject.class, new ImageObjectView());
 
-		AbstractGraphicObject go = new RectangleObject(new Point(180, 80), 20, 50);
+		dropdownModel = new DefaultComboBoxModel<>();
+		JComboBox<Integer> dropdown = new JComboBox<>(dropdownModel);
+		dropdown.addActionListener(e -> {
+			Integer selectedOption = (Integer) dropdown.getSelectedItem();
+			System.out.println("Opzione selezionata: " + selectedOption);
+			try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("graphic_list.ser"))) {
+				List<GraphicObject> graphicList = (List<GraphicObject>) in.readObject();
+				if (selectedOption != null) {
+					for (GraphicObject go : graphicList) {
+						go.setHighlighted(go.getId() == selectedOption);
+					}
+					gpanel.repaint();
+				}
+			gpanel.repaint();
+			} catch (IOException | ClassNotFoundException ex) {
+				System.out.println("No saved objects found or error loading file.");
+			}
+		});
 
-		JButton rectButton = new JButton(new CreateObjectAction(go, gpanel, handler));
+		toolbar.add(dropdown);
+
+		AbstractGraphicObject go = new RectangleObject(new Point(180, 80), 20, 50);
+		JButton rectButton = new JButton(new CreateObjectAction(go, gpanel, handler, dropdownModel));
 		rectButton.setText(go.getType());
 		toolbar.add(rectButton);
 
 		go = new CircleObject(new Point(200, 100), 10);
-		JButton circButton = new JButton(new CreateObjectAction(go, gpanel, handler));
+		JButton circButton = new JButton(new CreateObjectAction(go, gpanel, handler, dropdownModel));
 		circButton.setText(go.getType());
 		toolbar.add(circButton);
 
 		go = new CircleObject(new Point(200, 100), 100);
-		JButton circButton2 = new JButton(new CreateObjectAction(go, gpanel, handler));
+		JButton circButton2 = new JButton(new CreateObjectAction(go, gpanel, handler, dropdownModel));
 		circButton2.setText("big " + go.getType());
 		toolbar.add(circButton2);
 
 		go = new ImageObject(new ImageIcon(TestGraphics2.class.getResource("shapes/model/NyaNya.gif")),
 				new Point(240, 187));
-
-		JButton imgButton = new JButton(new CreateObjectAction(go, gpanel, handler));
+		JButton imgButton = new JButton(new CreateObjectAction(go, gpanel, handler, dropdownModel));
 		imgButton.setText(go.getType());
 		toolbar.add(imgButton);
 
 		final GraphicObjectController goc = new GraphicObjectController(handler);
 
 		gpanel.addMouseListener(new MouseAdapter() {
-
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
 				goc.setControlledObject(gpanel.getGraphicObjectAt(e.getPoint()));
 			}
 		});
@@ -94,7 +108,11 @@ public class TestGraphics2 {
 		f.getContentPane().add(controlPanel, BorderLayout.SOUTH);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.pack();
-		f.setVisible(true);
-
+		f.setVisible(true);*/
 	}
+
+	public static void main(String[] args) {
+		new TestGraphics2();
+	}
+
 }
