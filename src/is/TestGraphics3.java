@@ -78,6 +78,7 @@ public class TestGraphics3 {
         toolbar.add(textField);
         toolbar.add(okButton);
 
+        //commands
         String[] commands = {
                 "Command",
                 "<createCircle>::= new Circle raggio x,y",
