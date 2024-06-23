@@ -50,7 +50,7 @@ public class GroupCommandTest {
     public void testGroupObjects() {
         List<Integer> selectedIds = Arrays.asList(1, 2);
 
-        GroupCommand groupCommand = new GroupCommand(100, selectedIds, graphicList, gpanel, dropdownModel, cmdHandler);
+        GroupCommand groupCommand = new GroupCommand(1000,selectedIds, graphicList, gpanel, dropdownModel, cmdHandler);
 
         groupCommand.execute();
 

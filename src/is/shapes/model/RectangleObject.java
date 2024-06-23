@@ -27,6 +27,15 @@ public final class RectangleObject extends AbstractGraphicObject implements Seri
 
 	}
 
+	public void setPosition(Point2D point2D){
+		this.position=point2D;
+	}
+
+	public void setDimensione(double w,double h){
+		this.dim = new Dimension();
+		this.dim.setSize(w, h);
+	}
+
 	@Override
 	public boolean contains(Point2D p) {
 		double w = dim.getWidth() / 2;

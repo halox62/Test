@@ -31,6 +31,8 @@ public final class ImageObject extends AbstractGraphicObject implements Serializ
 		image = img.getImage();
 	}
 
+
+
 	@Override
 	public boolean contains(Point2D p) {
 		double w = (factor * image.getWidth(null)) / 2;
@@ -38,6 +40,10 @@ public final class ImageObject extends AbstractGraphicObject implements Serializ
 		double dx = Math.abs(p.getX() - position.getX());
 		double dy = Math.abs(p.getY() - position.getY());
 		return dx <= w && dy <= h;
+	}
+
+	public void setPosition(Point2D point2D){
+		this.position=point2D;
 	}
 
 	@Override
@@ -75,12 +81,24 @@ public final class ImageObject extends AbstractGraphicObject implements Serializ
 
 	@Override
 	public double getArea() {
-		return 0;
+		Dimension2D dim = getDimension();
+		double width = dim.getWidth();
+		double height = dim.getHeight();
+
+		double area = width * height;
+
+		return area;
 	}
 
 	@Override
 	public double getPerimetro() {
-		return 0;
+		Dimension2D dim = getDimension();
+		double width = dim.getWidth();
+		double height = dim.getHeight();
+
+		double perimetro = 2 * (width + height);
+
+		return perimetro;
 	}
 
 	@Override
@@ -125,6 +143,10 @@ public final class ImageObject extends AbstractGraphicObject implements Serializ
 			this.position = imgMemento.position;
 			this.factor = imgMemento.factor;
 		}
+	}
+
+	public void setImage(Image image) {
+		this.image=image;
 	}
 
 	private static class ImageObjectMemento extends GraphicObjectFactory.TypeMemento {

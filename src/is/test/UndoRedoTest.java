@@ -51,7 +51,7 @@ public class UndoRedoTest {
     @Test
     public void testUndoRedo() {
         List<Integer> selectedIds = Arrays.asList(1, 2);
-        groupCommand = new GroupCommand(1, selectedIds, graphicList, gpanel, dropdownModel, cmdHandler);
+        groupCommand = new GroupCommand(1000,selectedIds, graphicList, gpanel, dropdownModel, cmdHandler);
         cmdHandler.handle(groupCommand);
 
         groups = gpanel.getGroups();

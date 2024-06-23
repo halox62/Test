@@ -30,30 +30,19 @@ public class CreateObjectAction extends AbstractAction {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		GraphicObject go = prototype.clone();
-		ch.handle(new NewObjectCmd(panel, go));
-		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("graphic_list.ser"))) {
-			List<GraphicObject> graphicObjects = (List<GraphicObject>) in.readObject();
-			int maxId = 0;
-			for (GraphicObject goS : graphicObjects) {
-				int id = goS.getId();
-				if (id > maxId) {
-					maxId = id;
-				}
+		//GraphicObject go = prototype.clone();
+		//ch.handle(new NewObjectCmd(panel, prototype));
+		int maxId = 0;
+		for (GraphicObject goS : graphicList) {
+			int id = goS.getId();
+			if (id > maxId) {
+				maxId = id;
 			}
-			in.close();
-			go.setId(maxId+1);
-			graphicList.add(go);
-			dropdownModel.addElement(go.getId());
-			panel.setGraphicObjects(graphicList);
-			panel.repaint();
-		} catch (IOException | ClassNotFoundException ex) {
-			System.out.println("No saved objects found or error loading file.");
 		}
-		try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("graphic_list.ser"))){
-			out.writeObject(graphicList);
-		} catch (IOException ex) {
-			System.out.println("No saved objects found or error loading file.");
-		}
+		prototype.setId(maxId+1);
+		graphicList.add(prototype);
+		dropdownModel.addElement(prototype.getId());
+		panel.setGraphicObjects(graphicList);
+		panel.repaint();
 	}
 }

@@ -32,7 +32,6 @@ public class DeleteCommand implements Command {
     @Override
     public boolean execute() {
         memento = objectToDelete.createMemento();
-
         if (objectToDelete instanceof GroupObject) {
             GroupObject group = (GroupObject) objectToDelete;
             for (GraphicObject go : group.getObjects()) {

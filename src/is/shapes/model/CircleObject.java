@@ -28,6 +28,13 @@ public final  class CircleObject extends AbstractGraphicObject implements Serial
 	public CircleObject() {
 
 	}
+	public void setPosition(Point2D point2D){
+		this.position=point2D;
+	}
+
+	public void setRadius(double r){
+		this.radius=r;
+	}
 
 
 	public void setId(int id) {
@@ -106,7 +113,7 @@ public final  class CircleObject extends AbstractGraphicObject implements Serial
 	@Override
 	public CircleObject clone() {
 		CircleObject cloned = (CircleObject) super.clone();
-		cloned.position = (Point2D) position.clone();
+		cloned.position = new Point2D.Double(this.position.getX(), this.position.getY());
 		return cloned;
 	}
 
